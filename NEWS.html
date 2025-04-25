@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>समाचार दर्पण - भारत की प्रमुख खबरें</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --accent-color: #457b9d;
+            --light-color: #f1faee;
+            --dark-color: #1a1a1a;
+            --gray-color: #6c757d;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Georgia', serif;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .main-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-menu li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .main-menu li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .main-menu li a:hover,
+        .main-menu li a.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            margin-left: -35px;
+            color: var(--gray-color);
+            cursor: pointer;
+        }
+
+        /* Breaking News Ticker */
+        .breaking-news {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        .ticker-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-label {
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.2rem 0.8rem;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .ticker-content {
+            flex-grow: 1;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content marquee {
+            padding-top: 3px;
+        }
+
+        /* Main Content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        /* Featured News */
+        .featured-news {
+            grid-column: 1 / -1;
+            margin-bottom: 2rem;
+        }
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .featured-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .featured-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-image {
+            height: 100%;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .news-category {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .news-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--accent-color);
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .widget-title {
+            font-family: var(--font-heading);
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            position: relative;
+        }
+
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .trending-list {
+            list-style: none;
+        }
+
+        .trending-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .trending-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .trending-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ddd;
+            min-width: 30px;
+        }
+
+        .trending-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .trending-content p {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        /* Newsletter */
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
+        }
+
+        .newsletter-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: #c1121f;
+        }
+
+        /* Advertisement */
+        .ad-container {
+            background-color: #f8f9fa;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 250px;
+        }
+
+        .ad-container i {
+            font-size: 2rem;
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+        }
+
+        .ad-container p {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-logo h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+        }
+
+        .footer-logo p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .main-menu {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+            }
+
+            .main-menu.active {
+                display: flex;
+            }
+
+            .main-menu li {
+                margin: 0.5rem 0;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .ticker-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .ticker-label {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <div class="logo-text">
+                    <h1>समाचार दर्पण</h1>
+                    <p>भारत की प्रमुख खबरें</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <ul class="main-menu" id="mainMenu">
+                <li><a href="#" class="active">मुख्य समाचार</a></li>
+                <li><a href="#">राजनीति</a></li>
+                <li><a href="#">खेल</a></li>
+                <li><a href="#">मनोरंजन</a></li>
+                <li><a href="#">व्यापार</a></li>
+                <li><a href="#">तकनीक</a></li>
+                <li><a href="#">स्वास्थ्य</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" placeholder="खोजें...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breaking News Ticker -->
+    <div class="breaking-news">
+        <div class="ticker-container">
+            <div class="ticker-label">ताज़ा खबर</div>
+            <div class="ticker-content">
+                <marquee behavior="scroll" direction="left">
+                    • भारत ने जीता एशिया कप 2023 का फाइनल • दिल्ली में आज से लागू होगा नया ट्रैफिक नियम • रिलायंस JIO का नया प्लान लॉन्च
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Featured News -->
+        <section class="featured-news">
+            <div class="featured-card">
+                <div class="featured-content">
+                    <span class="category-tag">राजनीति</span>
+                    <h2>केंद्र सरकार ने घोषित की नई शिक्षा नीति, जानिए क्या बदलाव होंगे</h2>
+                    <p>केंद्र सरकार ने आज नई शिक्षा नीति की घोषणा की है जिसमें स्कूल और उच्च शिक्षा दोनों में बड़े बदलाव किए गए हैं। इस नीति के तहत 5+3+3+4 का नया पैटर्न लागू होगा...</p>
+                    <a href="#" class="read-more">पूरा पढ़ें <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="featured-image" style="background-image: url('https://via.placeholder.com/600x400')"></div>
+            </div>
+        </section>
+
+        <!-- News Grid -->
+        <main>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">खेल</span>
+                            <span>2 घंटे पहले</span>
+                        </div>
+                        <h3>विराट कोहली ने तोड़ा सचिन का रिकॉर्ड, बनाया सबसे तेज 13000 रन</h3>
+                        <p>भारतीय क्रिकेट टीम के पूर्व कप्तान विराट कोहली ने आज वनडे क्रिकेट में सचिन तेंदुलकर का रिकॉर्ड तोड़ दिया...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">तकनीक</span>
+                            <span>5 घंटे पहले</span>
+                        </div>
+                        <h3>Apple ने लॉन्च किया नया iPhone 15, जानिए कीमत और फीचर्स</h3>
+                        <p>Apple ने आज अपने नए iPhone 15 सीरीज को लॉन्च कर दिया है। इस सीरीज में iPhone 15, iPhone 15 Plus, iPhone 15 Pro और iPhone 15 Pro Max शामिल हैं...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">व्यापार</span>
+                            <span>आज सुबह</span>
+                        </div>
+                        <h3>Sensex ने छुआ नया रिकॉर्ड स्तर, 70,000 अंक के पार पहली बार</h3>
+                        <p>शुक्रवार को शेयर बाजार में तेजी का रुख जारी रहा और BSE Sensex ने इतिहास में पहली बार 70,000 अंक के स्तर को पार कर लिया...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+
+                <!-- Advertisement -->
+                <div class="ad-container">
+                    <i class="fas fa-ad"></i>
+                    <h4>विज्ञापन</h4>
+                    <p>यहाँ आपका विज्ञापन दिखाई देगा</p>
+                    <small>Google AdSense या सीधे विज्ञापनदाता</small>
+                </div>
+
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">स्वास्थ्य</span>
+                            <span>कल</span>
+                        </div>
+                        <h3>कोरोना के नए वेरिएंट JN.1 ने बढ़ाई चिंता, जानिए लक्षण और बचाव</h3>
+                        <p>देशभर में कोरोना वायरस के नए वेरिएंट JN.1 के मामले तेजी से बढ़ रहे हैं। स्वास्थ्य मंत्रालय ने सभी राज्यों को अलर्ट जारी किया है...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">मनोरंजन</span>
+                            <span>कल</span>
+                        </div>
+                        <h3>Animal फिल्म ने बॉक्स ऑफिस पर तोड़े सारे रिकॉर्ड, 500 करोड़ का आंकड़ा पार</h3>
+                        <p>रणबीर कपूर की फिल्म Animal ने बॉक्स ऑफिस पर धमाल मचा दिया है। फिल्म ने विश्व स्तर पर 500 करोड़ रुपये का आंकड़ा पार कर लिया है...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-image" style="background-image: url('https://via.placeholder.com/400x300')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-category">अंतरराष्ट्रीय</span>
+                            <span>2 दिन पहले</span>
+                        </div>
+                        <h3>अमेरिका ने भारत को दिया F-35 लड़ाकू विमानों का ऑफर, जानिए पूरी खबर</h3>
+                        <p>अमेरिका ने भारत को अपने सबसे एडवांस्ड F-35 स्टील्थ लड़ाकू विमानों की आपूर्ति का ऑफर दिया है। यह ऑफर भारत-अमेरिका रक्षा सहयोग को और मजबूत करेगा...</p>
+                        <a href="#" class="read-more">पूरा पढ़ें</a>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Trending News -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">ट्रेंडिंग न्यूज़</h3>
+                <ul class="trending-list">
+                    <li class="trending-item">
+                        <div class="trending-number">1</div>
+                        <div class="trending-content">
+                            <h4>राम मंदिर उद्घाटन की तारीख घोषित</h4>
+                            <p>22 जनवरी 2024 को होगा उद्घाटन</p>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <div class="trending-number">2</div>
+                        <div class="trending-content">
+                            <h4>ISRO ने लॉन्च किया नया सैटेलाइट</h4>
+                            <p>XPoSat मिशन सफलतापूर्वक लॉन्च</p>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <div class="trending-number">3</div>
+                        <div class="trending-content">
+                            <h4>2024 में बदलेंगे इनकम टैक्स के नियम</h4>
+                            <p>नए स्लैब में मिलेगी राहत</p>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <div class="trending-number">4</div>
+                        <div class="trending-content">
+                            <h4>मुंबई में भारी बारिश की चेतावनी</h4>
+                            <p>2 दिनों तक रेड अलर्ट जारी</p>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <div class="trending-number">5</div>
+                        <div class="trending-content">
+                            <h4>UPSC सिविल सेवा परीक्षा का रिजल्ट</h4>
+                            <p>आज शाम 5 बजे आएगा रिजल्ट</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">न्यूज़लेटर सब्सक्राइब करें</h3>
+                <form class="newsletter-form">
+                    <input type="text" placeholder="आपका नाम">
+                    <input type="email" placeholder="ईमेल पता">
+                    <button type="submit">सब्सक्राइब करें</button>
+                </form>
+            </div>
+
+            <!-- Advertisement -->
+            <div class="sidebar-widget">
+                <div class="ad-container">
+                    <i class="fas fa-ad"></i>
+                    <h4>विज्ञापन</h4>
+                    <p>यहाँ आपका विज्ञापन दिखाई देगा</p>
+                    <small>300x250 पिक्सल</small>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h3>समाचार दर्पण</h3>
+                <p>समाचार दर्पण भारत की प्रमुख खबरों का विश्वसनीय स्रोत है। हम सटीक और निष्पक्ष समाचार प्रदान करने के लिए प्रतिबद्ध हैं।</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>श्रेणियाँ</h4>
+                <ul>
+                    <li><a href="#">राजनीति</a></li>
+                    <li><a href="#">खेल</a></li>
+                    <li><a href="#">मनोरंजन</a></li>
+                    <li><a href="#">व्यापार</a></li>
+                    <li><a href="#">तकनीक</a></li>
+                    <li><a href="#">स्वास्थ्य</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>कंपनी</h4>
+                <ul>
+                    <li><a href="#">हमारे बारे में</a></li>
+                    <li><a href="#">संपर्क करें</a></li>
+                    <li><a href="#">कैरियर</a></li>
+                    <li><a href="#">गोपनीयता नीति</a></li>
+                    <li><a href="#">अस्वीकरण</a></li>
+                    <li><a href="#">विज्ञापन दें</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>संपर्क</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 न्यूज़ स्ट्रीट, मुंबई</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-envelope"></i> contact@samachardarpan.com</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2023 समाचार दर्पण. सर्वाधिकार सुरक्षित।</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainMenu = document.getElementById('mainMenu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mainMenu.classList.toggle('active');
+            this.innerHTML = mainMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Advertisement Loading Simulation
+        function loadAds() {
+            // This would be replaced with actual ad code
+            console.log("Loading advertisements...");
+            
+            // Simulate ad loading
+            setTimeout(() => {
+                const adSpaces = document.querySelectorAll('.ad-container');
+                adSpaces.forEach(ad => {
+                    ad.innerHTML = `
+                        <img src="https://via.placeholder.com/300x250" alt="Advertisement" style="max-width:100%;">
+                        <p class="ad-label">Sponsored</p>
+                    `;
+                });
+            }, 1500);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAds();
+            
+            // Set current date in footer
+            document.querySelector('.copyright p').textContent = 
+                `© ${new Date().getFullYear()} समाचार दर्पण. सर्वाधिकार सुरक्षित।`;
+            
+            // Add active class to current page in navigation
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.main-menu a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // News Card Click Tracking
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                console.log(`News article clicked: ${title}`);
+                // Here you would typically send this data to analytics
+            });
+        });
+
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = this.querySelector('input[type="text"]').value;
+                const email = this.querySelector('input[type="email"]').value;
+                
+                console.log(`Newsletter subscription: Name - ${name}, Email - ${email}`);
+                alert('धन्यवाद! आपका सब्सक्रिप्शन सफलतापूर्वक पंजीकृत हो गया है।');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
